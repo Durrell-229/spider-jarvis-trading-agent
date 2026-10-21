@@ -7,10 +7,25 @@ Aucun ordre réel n'est envoyé tant que vous n'avez pas explicitement configur�
 
 ## Architecture
 
-- Backend FastAPI + WebSocket
-- Frontend React + TypeScript + Vite
-- Crawler, Analysis Engine, JEV, Risk Engine, Paper Trading
-- Mock data provider (100% offline)
+```
+spider-jarvis-trading-agent/
+├── backend/                 # FastAPI + WebSocket
+│   ├── app/
+│   │   ├── api/             # REST + WebSocket
+│   │   ├── core/            # Config, logging
+│   │   ├── crawler/         # Scan & graphe de tokens
+│   │   ├── data_providers/  # Mock (offline)
+│   │   ├── engines/         # Analyse
+│   │   ├── jev/             # Module de décision JEV
+│   │   ├── risk/            # Risk Engine
+│   │   ├── services/        # Orchestrateur + Paper Trading
+│   │   └── models/          # Schémas Pydantic
+│   └── tests/
+├── frontend/                # React + TypeScript + Vite
+├── scripts/
+├── .env.example
+└── README.md
+```
 
 ## Installation
 
@@ -20,7 +35,7 @@ Aucun ordre réel n'est envoyé tant que vous n'avez pas explicitement configur�
 .\scripts\start_windows.ps1
 ```
 
-### Linux
+### Linux / macOS
 ```bash
 cp .env.example .env
 cd backend && python3 -m venv .venv && source .venv/bin/activate
@@ -33,10 +48,12 @@ cd frontend && npm run dev -- --host
 ```
 
 ### URLs
-- Frontend: http://localhost:5173
-- Backend: http://localhost:8000
-- API Docs: http://localhost:8000/docs
-- Safety Center: http://localhost:8000/api/safety
+| Service   | URL                        |
+|-----------|----------------------------|
+| Frontend  | http://localhost:5173      |
+| Backend   | http://localhost:8000      |
+| API Docs  | http://localhost:8000/docs |
+| Safety    | http://localhost:8000/api/safety |
 
 ## Sécurité
 
@@ -46,7 +63,7 @@ TRADING_MODE=live
 LIVE_TRADING_CONFIRMATION=I_UNDERSTAND_THE_RISK
 ```
 
-Sans cette confirmation exacte, le système reste en paper trading.
+Sans cette confirmation exacte, le système **reste en paper trading**.
 
 ## Avertissement
 
